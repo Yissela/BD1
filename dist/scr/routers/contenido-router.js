@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const contenido_controller_1 = require("../controllers/contenido.controller");
+const router = (0, express_1.Router)();
+router.get('/', contenido_controller_1.contenido);
+router.get('/generos', contenido_controller_1.genero);
+router.put('/buscar', contenido_controller_1.buscarPelicula);
+router.put('/buscarGenero', contenido_controller_1.buscarGenero);
+router.get('/generosPeli', contenido_controller_1.generoPeliculas);
+exports.default = router;
