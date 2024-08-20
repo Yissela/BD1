@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import { getLogin, historialUsuario, perfiles, usuarios } from '../controllers/usuarios.controllers';
+import { getLogin, historialUsuario, insertarUsuario, perfiles, usuarios } from '../controllers/usuarios.controllers';
 
 const router = Router();
 
 router.get('/', usuarios);
 router.put('/login', getLogin);
-//router.get('/aggUsuario', aggUsuario);
+router.put('/aggUsuario', insertarUsuario);
 router.put('/historial/:id_usuario', historialUsuario);
 router.put('/perfil/:id_usuario', perfiles);
 

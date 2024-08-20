@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { aggUsuarioBD, historialBD, login, perfilesDB, usuariosBD } from '../service/usuarios-service';
-
+import { Usuario } from '../modelos/usuario';
 
 export const usuarios = async (req: Request, res: Response) => {
   try {
@@ -91,6 +91,18 @@ export const getLogin = async (req: Request, res: Response) => {
     }
   };
 
-
+  export const insertarUsuario = async (req: Request, res: Response) => {
+    try {
+      const nuevoUsuario: Usuario = req.body;
+      
+  
+      await aggUsuarioBD(nuevoUsuario);
+      
+      res.status(201).send('Usuario insertado');
+    } catch (err) {
+      console.error('Error:', err);
+      res.status(500).send('Error');
+    }
+  };
 
 

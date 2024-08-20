@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.perfiles = exports.getLogin = exports.historialUsuario = exports.usuarios = void 0;
+exports.insertarUsuario = exports.perfiles = exports.getLogin = exports.historialUsuario = exports.usuarios = void 0;
 const usuarios_service_1 = require("../service/usuarios-service");
 const usuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -104,3 +104,15 @@ const perfiles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.perfiles = perfiles;
+const insertarUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const nuevoUsuario = req.body;
+        yield (0, usuarios_service_1.aggUsuarioBD)(nuevoUsuario);
+        res.status(201).send('Usuario insertado');
+    }
+    catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Error');
+    }
+});
+exports.insertarUsuario = insertarUsuario;

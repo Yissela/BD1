@@ -50,10 +50,13 @@ const login = (email, contraseña) => __awaiter(void 0, void 0, void 0, function
 exports.login = login;
 // registro
 const aggUsuarioBD = (usuario) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!usuario) {
+        throw new Error('El objeto usuario es undefined o null');
+    }
     const connection = yield (0, data_1.getConnection)();
-    const { title, genre, releaseDate } = usuario;
+    const { id_usuario, p_nombre, s_nombre, p_apellido, s_apellido, email, contraseña, id_plan, id_locacion } = usuario;
     try {
-        const result = yield connection.execute('INSERT INTO movies (title, genre, release_date) VALUES (:title, :genre, :releaseDate)', [title, genre, releaseDate], { autoCommit: true });
+        const result = yield connection.execute('INSERT INTO system.usuarios2 (id_usuario, p_nombre, s_nombre, p_apellido, s_apellido, email, contraseña, fecha_registro, id_rol, id_plan, id_locacion) VALUES (:id_usuario, :p_nombre, :s_nombre, :p_apellido, :s_apellido, :email, :contraseña, SYSDATE, 2, :id_plan , :id_locacion)', [id_usuario, p_nombre, s_nombre, p_apellido, s_apellido, email, contraseña, id_plan, id_locacion], { autoCommit: true });
         return result;
     }
     finally {

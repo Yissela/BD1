@@ -1,11 +1,8 @@
 import OracleDB from 'oracledb';
 import { getConnection } from '../data/data';
+import { Usuario } from '../modelos/usuario';
 
-interface Usuario {
-    title: string;
-    genre: string;
-    releaseDate: string;
-  }
+
 
 // todos los usuarios
   export const usuariosBD = async () => {
@@ -43,13 +40,17 @@ export const login = async (email: string, contraseña: string) => {
 
 // registro
 export const aggUsuarioBD = async (usuario: Usuario) => {
+
+  if (!usuario) {
+    throw new Error('El objeto usuario es undefined o null');
+  }
     const connection = await getConnection();
-    const { title, genre, releaseDate } = usuario;
+    const { id_usuario, p_nombre, s_nombre, p_apellido, s_apellido, email, contraseña, id_plan, id_locacion } = usuario;
     
     try {
       const result = await connection.execute(
-        'INSERT INTO movies (title, genre, release_date) VALUES (:title, :genre, :releaseDate)',
-        [title, genre, releaseDate],
+        'INSERT INTO system.usuarios2 (id_usuario, p_nombre, s_nombre, p_apellido, s_apellido, email, contraseña, fecha_registro, id_rol, id_plan, id_locacion) VALUES (:id_usuario, :p_nombre, :s_nombre, :p_apellido, :s_apellido, :email, :contraseña, SYSDATE, 2, :id_plan , :id_locacion)',
+        [ id_usuario, p_nombre, s_nombre, p_apellido, s_apellido, email, contraseña, id_plan, id_locacion],
         { autoCommit: true }
       );
       return result;
