@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.perfilesDB = exports.aggUsuarioBD = exports.login = exports.historialBD = exports.usuariosBD = void 0;
+exports.aggPerfilesBD = exports.perfilesDB = exports.aggUsuarioBD = exports.login = exports.historialBD = exports.usuariosBD = void 0;
 const data_1 = require("../data/data");
 // todos los usuarios
 const usuariosBD = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -76,3 +76,18 @@ const perfilesDB = (id_usuario) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.perfilesDB = perfilesDB;
+const aggPerfilesBD = (perfil) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!perfil) {
+        throw new Error('El objeto usuario es undefined o null');
+    }
+    const connection = yield (0, data_1.getConnection)();
+    const { nombre_perfil, id_usuario } = perfil;
+    try {
+        const result = yield connection.execute('INSERT INTO system.perfiles (id_perfiles, nombre_perfil, id_usuario) VALUES (valor_id.nextval ,:nombre_perfil, :id_usuario)', [nombre_perfil, id_usuario], { autoCommit: true });
+        return result;
+    }
+    finally {
+        yield connection.close();
+    }
+});
+exports.aggPerfilesBD = aggPerfilesBD;

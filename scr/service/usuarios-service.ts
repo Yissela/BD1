@@ -1,6 +1,7 @@
 import OracleDB from 'oracledb';
 import { getConnection } from '../data/data';
 import { Usuario } from '../modelos/usuario';
+import { perfilesInterface } from '../modelos/perfiles';
 
 
 
@@ -72,3 +73,24 @@ export const aggUsuarioBD = async (usuario: Usuario) => {
       await connection.close();
     }
   };
+
+
+  export const aggPerfilesBD = async (perfil: perfilesInterface) => {
+
+    if (!perfil) {
+      throw new Error('El objeto usuario es undefined o null');
+    }
+      const connection = await getConnection();
+      const {nombre_perfil, id_usuario} = perfil;
+      
+      try {
+        const result = await connection.execute(
+          'INSERT INTO system.perfiles (id_perfiles, nombre_perfil, id_usuario) VALUES (valor_id.nextval ,:nombre_perfil, :id_usuario)',
+          [ nombre_perfil, id_usuario],
+          { autoCommit: true }
+        );
+        return result;
+      } finally {
+        await connection.close();
+      }
+    };

@@ -8,4 +8,5 @@ router.put('/login', usuarios_controllers_1.getLogin);
 router.put('/aggUsuario', usuarios_controllers_1.insertarUsuario);
 router.put('/historial/:id_usuario', usuarios_controllers_1.historialUsuario);
 router.put('/perfil/:id_usuario', usuarios_controllers_1.perfiles);
+router.put('/aggPerfil', usuarios_controllers_1.insertarPerfil);
 exports.default = router;
